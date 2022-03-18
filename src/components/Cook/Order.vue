@@ -1,5 +1,6 @@
 <template>
   <tr>
+     <td>{{ order.id }}</td>
     <td>{{ order.table }}</td>
     <td>{{ order.shift_workers }}</td>
     <td>{{ order.create_at }}</td>

@@ -13,7 +13,7 @@
       <input type="password" class="form-control" v-model="password" />
       <div class="form-text text-danger">{{ error }}</div>
     </div>
-    <button type="submit" class="btn btn-primary" @click="loginUser">
+    <button type="submit" class="btn btn-primary" @click.prevent="loginUser">
       Submit
     </button>
   </form>
@@ -21,7 +21,7 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapActions } = createNamespacedHelpers("auth/login");
+const { mapActions } = createNamespacedHelpers("auth");
 export default {
   name: "LoginView",
   data() {
@@ -39,14 +39,17 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["fetchLogin"]),
+    ...mapActions({
+      fetchLogin: "login/fetchLogin",
+      checkRole: "checkRole/checkRole",
+      }),
     async loginUser() {
       const body = {
         login: this.login,
         password: this.password,
       };
       const res = await this.fetchLogin(body);
-      this.error = res.error ? res.error.message : "";
+      res.error ? this.error = res.error.message : this.checkRole();
       this.login = "";
       this.password = "";
     },

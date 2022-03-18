@@ -36,7 +36,7 @@
       <div class="form-text text-danger">{{ errors.role_id }}</div>
       <div class="form-text text-success">{{ success }}</div>
     </div>
-    <button type="submit" class="btn btn-primary" @click="addUser">
+    <button type="submit" class="btn btn-primary" @click.prevent="addUser">
       Add new user
     </button>
   </form>

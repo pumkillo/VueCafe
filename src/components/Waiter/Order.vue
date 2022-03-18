@@ -1,15 +1,19 @@
 <template>
-  <div class="card">
-    <div class="card-header">Order №{{ order.id }}</div>
-    <div class="card-body">
-      <p class="card-text">{{ order.table }}</p>
-      <p class="card-text">Workers: {{ order.shift_workers }}</p>
-      <p class="card-text">Created: {{ Date(order.create_at) }}</p>
-      <p class="card-text">Status: {{ order.status }}</p>
-      <p class="card-text">Price: {{ order.price }}&#x20bd;</p>
-      <router-link :to="{name: 'order', params: {id: order.id}}" class="btn btn-primary">To order</router-link>
-    </div>
-  </div>
+  <tr>
+    <td>{{ order.id }}</td>
+    <td>{{ order.table }}</td>
+    <td>{{ order.shift_workers }}</td>
+    <td>{{ order.create_at }}</td>
+    <td>{{ order.status }}</td>
+    <td>{{ order.price }}</td>
+    <td>
+      <router-link
+        :to="{ name: 'order', params: { id: order.id } }"
+        class="btn btn-primary"
+        >To order</router-link
+      >
+    </td>
+  </tr>
 </template>
 
 <script>

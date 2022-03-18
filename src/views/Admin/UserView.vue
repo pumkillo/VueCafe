@@ -1,8 +1,27 @@
 <template>
   <div class="users-table">
-    <p class="text-danger">{{ error }}</p>
-    <table>
-      <user-line v-for="user in users" :key="user.id" :user="user"></user-line>
+    <div class="text-danger">{{ error }}</div>
+    <router-link :to="{ name: 'newUser' }" class="btn btn-primary"
+      >Add new employee</router-link
+    >
+    <h2 class="text-center m-4">All Employees</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#id</th>
+          <th scope="col">Nmae</th>
+          <th scope="col">Login</th>
+          <th scope="col">Status</th>
+          <th scope="col">Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <user-line
+          v-for="user in users"
+          :key="user.id"
+          :user="user"
+        ></user-line>
+      </tbody>
     </table>
   </div>
 </template>
@@ -21,6 +40,9 @@ export default {
       error: "",
       users: [],
     };
+  },
+  beforeUpdate(){
+    this.getUsers();
   },
   mounted() {
     this.getUsers();

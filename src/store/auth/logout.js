@@ -4,6 +4,9 @@ const logout = {
     clearToken(context) {
       localStorage.removeItem("token");
     },
+    clearRole(context) {
+      localStorage.removeItem("role");
+    },
   },
   actions: {
     async logout(context) {
@@ -15,6 +18,7 @@ const logout = {
         },
       }).then((response) => response.json());
       context.commit("clearToken");
+      context.commit("clearRole");
       return res;
     },
   },

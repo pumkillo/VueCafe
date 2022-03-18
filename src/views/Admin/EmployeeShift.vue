@@ -25,7 +25,7 @@
       <p class="text-danger">{{ errorAdding }}</p>
     </div>
     <div class="mb-3">
-      <button type="button" class="btn btn-primary" @click="add">Add</button>
+      <button type="button" class="btn btn-primary me-3" @click="add">Add</button>
       <button type="button" class="btn btn-danger" @click="deleteUserFromShift">Delete</button>
     </div>
     <p class="text-success">{{ successAdding }}</p>

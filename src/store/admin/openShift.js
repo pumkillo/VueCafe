@@ -1,9 +1,9 @@
-const fireEmployee = {
+const openShift = {
   namespaced: true,
   actions: {
-    async fireEmployee(context, employeeId) {
+    async openShift(context, shiftId) {
       const res = await fetch(
-        process.env.VUE_APP_HOST_URL + "user/" + employeeId + "/to-dismiss",
+        process.env.VUE_APP_HOST_URL + "work-shift/" + shiftId + "/open",
         {
           method: "GET",
           headers: {
@@ -16,4 +16,4 @@ const fireEmployee = {
     },
   },
 };
-export default fireEmployee;
+export default openShift;

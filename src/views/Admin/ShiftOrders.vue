@@ -12,13 +12,30 @@
         <p class="text-danger">{{ errorFetching }}</p>
       </div>
     </form>
-    <div class="order" v-for="order in shiftOrders" :key="order.id">
-      <p>{{ order.table }}</p>
-      <p>{{ order.shift_workers }}</p>
-      <p>{{ order.create_at }}</p>
-      <p>{{ order.status }}</p>
-      <p>{{ order.price }}</p>
-    </div>
+        <h3 class="text-center" style="margin-top:100px;">Заказы</h3>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Столик</th>
+          <th scope="col">Сотрудник</th>
+          <th scope="col">Создан</th>
+          <th scope="col">Статус</th>
+          <th scope="col">Цена</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="order in shiftOrders" :key="order.id">
+          <th scope="row">{{ order.id }}</th>
+          <td>{{ order.table }}</td>
+          <td>{{ order.shift_workers }}</td>
+          <td>{{ order.create_at }}</td>
+          <td>{{ order.status }}</td>
+          <td>{{ order.price }}</td>
+        </tr>
+      </tbody>
+    </table>
+
   </div>
 </template>
 

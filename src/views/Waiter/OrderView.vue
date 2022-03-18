@@ -20,7 +20,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="position in order.positions">
+            <tr v-for="position in order.positions" :key="position.id">
               <th scope="row">{{ position.id }}</th>
               <td>{{ position.position }}</td>
               <td>{{ position.count }}</td>

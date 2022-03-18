@@ -1,20 +1,27 @@
 <template>
   <div class="active-shift-orders">
-    <table v-if="error === ''">
-      <tr>
-        <th>Table</th>
-        <th>Workers</th>
-        <th>When created</th>
-        <th>Status</th>
-        <th>Price</th>
-        <th>Change Status</th>
-      </tr>
-      <order-block
-        v-for="order in orders"
-        :key="order.id"
-        :order="order"
-      ></order-block>
+    <h2 class="text-center m-4">Список заказов</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Table</th>
+          <th>Workers</th>
+          <th>When created</th>
+          <th>Status</th>
+          <th>Price</th>
+          <th>Change Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <order-block
+          v-for="order in orders"
+          :key="order.id"
+          :order="order"
+        ></order-block>
+      </tbody>
     </table>
+
     <p class="text-danger">{{ error }}</p>
   </div>
 </template>

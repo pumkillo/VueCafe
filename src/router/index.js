@@ -9,7 +9,9 @@ import ShiftOrders from "@/views/Admin/ShiftOrders.vue";
 import CreateOrder from "@/views/Waiter/CreateOrder.vue";
 import OrdersView from "@/views/Waiter/OrdersView.vue";
 import OrderView from "@/views/Waiter/OrderView.vue";
-import shiftOrdersView from "@/views/Cook/ShiftOrdersView.vue";
+import ShiftOrdersView from "@/views/Cook/ShiftOrdersView.vue";
+import Shifts from "@/views/Admin/Shifts.vue";
+import CreateShift from "@/views/Admin/CreateShift.vue";
 
 Vue.use(VueRouter);
 
@@ -33,23 +35,33 @@ const routes = [
   },
   {
     path: "/user/new",
-    name: "new_user",
+    name: "newUser",
     component: NewUser,
   },
   {
     path: "/shift/user",
-    name: "EmployeeShift",
+    name: "employeeShift",
     component: EmployeeShift,
   },
   {
+    path: "/shifts",
+    name: "shifts",
+    component: Shifts,
+  },
+  {
+    path: "/shift/create",
+    name: "createShift",
+    component: CreateShift,
+  },
+  {
     path: "/shift/orders",
-    name: "ShiftOrders",
+    name: "shiftOrders",
     component: ShiftOrders,
   },
   // waiter
   {
     path: "/create/order",
-    name: "CreateOrder",
+    name: "createOrder",
     component: CreateOrder,
   },
   {
@@ -67,13 +79,14 @@ const routes = [
   {
     path: "/work-shift/now/orders",
     name: "activeShiftOrders",
-    component: shiftOrdersView,
+    component: ShiftOrdersView,
   },
   // 
 ];
 
 const router = new VueRouter({
   routes,
+  mode: 'history'
 });
 
 export default router;

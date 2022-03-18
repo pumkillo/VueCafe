@@ -1,14 +1,22 @@
 <template>
   <tr>
+    <th>{{ user.id }}</th>
     <td>{{ user.name }}</td>
     <td>{{ user.login }}</td>
     <td>{{ user.status }}</td>
     <td>{{ user.group }}</td>
     <td>
-      <button type="button" class="btn btn-danger" @click="fireUser">
+      <button
+        type="button"
+        class="btn btn-danger"
+        @click="fireUser"
+        v-if="user.status !== 'fired'"
+      >
         Fire
       </button>
+      <p v-else class="text-danger">Fired</p>
     </td>
+    <td v-if="error">{{ error }}</td>
   </tr>
 </template>
 
@@ -19,22 +27,26 @@ export default {
   name: "user-line",
   props: ["user"],
   data() {
-    return {};
+    return {
+      error: "",
+    };
   },
   methods: {
     ...mapActions(["fireEmployee"]),
-    // ERRORS!!!!!!!
     async fireUser() {
-      console.log("fireEmployee");
       const res = await this.fireEmployee(this.user.id);
+      if (res.error) {
+        res.error.errors
+          ? (this.errors = res.error.errors)
+          : (this.error = res.error.message);
+      }
     },
   },
 };
 </script>
 
 <style scoped>
-td:not(:last-child) {
-  padding: 3px 7px;
-  border: 1px solid #000;
+p {
+  margin-bottom: 0;
 }
 </style>

@@ -1,23 +1,30 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link :to="{ name: 'login' }">Log in</router-link>
-      <router-link :to="{ name: 'logout' }">Log out</router-link>
+    <div class="container">
+      <Header />
+      <div style="min-height: 75vh">
+        <router-view></router-view>
+      </div>
 
-      <router-link :to="{ name: 'users' }">All Users</router-link>
-      <router-link :to="{ name: 'new_user' }">Add new employee</router-link>
-      <router-link :to="{ name: 'EmployeeShift' }">EmployeeShift</router-link>
-      <router-link :to="{ name: 'ShiftOrders' }">ShiftOrders</router-link>
-      <router-link :to="{ name: 'activeShiftOrders' }">Active Shift Orders</router-link>
-      <router-link :to="{ name: 'CreateOrder' }">Create Order</router-link>
-      <router-link :to="{ name: 'orders' }">All Orders</router-link>
-    </nav>
-    <router-view></router-view>
+      <Footer />
+    </div>
   </div>
 </template>
 
+<script>
+import Header from "./components/Header.vue";
+import Footer from "./components/Footer.vue";
+export default {
+  components: {
+    Header,
+    Footer,
+  },
+};
+</script>
+
 <style>
-a {
-  padding: 3px 7px;
+nav {
+  padding: 30px;
 }
 </style>
+

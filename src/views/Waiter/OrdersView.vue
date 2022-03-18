@@ -3,20 +3,39 @@
     <form>
       <div class="mb-3">
         <label class="form-label">Choose a shift</label>
-        <input type="number" class="form-control" v-model="shiftId" />
+        <input
+          type="number"
+          class="form-control"
+          v-model="shiftId"
+          @change="getOrders"
+        />
       </div>
-      <div class="mb-3">
-        <button type="button" class="btn btn-primary" @click="getOrders">
-          Apply
-        </button>
-        <div class="form-text text-danger">{{ error }}</div>
-      </div>
+      <div class="form-text text-danger">{{ error }}</div>
     </form>
-    <order-block
-      v-for="order in orders"
-      :order="order"
-      :key="order.id"
-    ></order-block>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#id</th>
+          <th>Table</th>
+          <th>Workers</th>
+          <th>When created</th>
+          <th>Status</th>
+          <th>Price</th>
+          <th>
+            <router-link :to="{ name: 'createOrder' }" class="btn btn-primary"
+              >Add new order</router-link
+            >
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <order-block
+          v-for="order in orders"
+          :order="order"
+          :key="order.id"
+        ></order-block>
+      </tbody>
+    </table>
   </div>
 </template>
 

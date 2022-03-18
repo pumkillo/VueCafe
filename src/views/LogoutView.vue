@@ -21,7 +21,7 @@ export default {
       const res = await this.logout();
       res.error
         ? (this.error_message = res.error.message)
-        : this.$router.push("/");
+        : (window.location.href = "/");
     },
   },
 };
