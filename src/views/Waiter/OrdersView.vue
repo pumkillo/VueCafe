@@ -6,8 +6,8 @@
         <input
           type="number"
           class="form-control"
-          v-model="shiftId"
-          @change="getOrders"
+          v-model.lazy="shiftId"
+          @click.enter="getOrders"
         />
       </div>
       <div class="form-text text-danger">{{ error }}</div>
@@ -49,15 +49,18 @@ export default {
     return {
       error: "",
       orders: [],
-      shiftId: 0,
+      shiftId: 0
     };
   },
   watch: {
-    error: function (newValue) {
+    shiftId: function() {
+      this.getOrders();
+    },
+    error: function(newValue) {
       setTimeout(() => {
         this.error = "";
       }, 3000);
-    },
+    }
   },
   components: { orderBlock },
   methods: {
@@ -67,8 +70,8 @@ export default {
       res.error
         ? (this.error = res.error.message)
         : (this.orders = res.data.orders);
-    },
-  },
+    }
+  }
 };
 </script>
 

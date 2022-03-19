@@ -40,7 +40,20 @@
         <button class="btn btn-success" @click="formAdd = !formAdd">
           Add a position
         </button>
-        <button class="btn btn-primary">Change status</button>
+        <button
+          class="btn btn-primary"
+          v-if="order.status === 'Принят'"
+          @click="editStatus('canceled')"
+        >
+          Change status to canceled
+        </button>
+        <button
+          class="btn btn-primary"
+          v-else-if="order.status === 'Готов'"
+          @click="editStatus('paid-up')"
+        >
+          Change status to paid-up
+        </button>
         <div class="form" v-if="formAdd">
           <div class="mb-3">
             <label class="form-label">Menu position</label>
@@ -82,16 +95,16 @@ export default {
       formAdd: false,
       formData: {
         menu_id: 0,
-        count: 1,
-      },
+        count: 1
+      }
     };
   },
   watch: {
-    error: function (newValue) {
+    error: function(newValue) {
       setTimeout(() => {
         this.error = "";
       }, 3000);
-    },
+    }
   },
   mounted() {
     this.getOrders();
@@ -101,7 +114,7 @@ export default {
       deleteFromOrder: "deleteFromOrder/deleteFromOrder",
       addToOrder: "addToOrder/addToOrder",
       changeStatus: "changeStatus/changeStatus",
-      fetchOrder: "showOrder/fetchOrder",
+      fetchOrder: "showOrder/fetchOrder"
     }),
     async getOrders() {
       const res = await this.fetchOrder(this.shiftId);
@@ -110,21 +123,37 @@ export default {
     async deletePos(positionId) {
       const res = await this.deleteFromOrder({
         orderId: this.order.id,
-        positionId: positionId,
+        positionId: positionId
       });
       res.error ? (this.error = res.error.message) : (this.order = res.data);
+    },
+    async editStatus(status) {
+      const res = await this.changeStatus({
+        orderId: this.order.id,
+        body: { status: status }
+      });
+      if (res.error) {
+        res.error.errors
+          ? (this.errors = res.error.errors)
+          : (this.error = res.error.message);
+      } else {
+        this.getOrders();
+      }
     },
     async addPos() {
       const res = await this.addToOrder({
         orderId: this.order.id,
-        body: this.formData,
+        body: this.formData
       });
-      res.error ? (this.error = res.error.message) : (this.order = res.data);
       if (res.error) {
-        this.errors = res.error.errors;
+        res.error.errors
+          ? (this.errors = res.error.errors)
+          : (this.error = res.error.message);
+      } else {
+        this.getOrders();
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

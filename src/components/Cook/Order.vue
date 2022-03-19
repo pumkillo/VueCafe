@@ -1,14 +1,26 @@
 <template>
   <tr>
-     <td>{{ order.id }}</td>
+    <td>{{ order.id }}</td>
     <td>{{ order.table }}</td>
     <td>{{ order.shift_workers }}</td>
     <td>{{ order.create_at }}</td>
     <td>{{ order.status }}</td>
     <td>{{ order.price }}</td>
     <td>
-      <button type="button" @click="change('preparing')">Preparing</button>
-      <button type="button" @click="change('ready')">Ready</button>
+      <button
+        class="btn btn-primary"
+        v-if="order.status === 'Принят'"
+        @click="change('preparing')"
+      >
+        Change status to preparing
+      </button>
+      <button
+        class="btn btn-primary"
+        v-else-if="order.status === 'Готовится'"
+        @click="change('ready')"
+      >
+        Change status to ready
+      </button>
     </td>
   </tr>
 </template>
@@ -25,13 +37,13 @@ export default {
     ...mapActions(["changeStatus"]),
     async change(status) {
       let body = { status: status };
-      console.log(body);
       const res = await this.changeStatus({
         orderId: this.order.id,
-        body: body,
+        body: body
       });
-    },
-  },
+      res.data ? this.$emit("changeStatus", {message: "Updated successfuly"}) : this.$emit("changeStatus", {error: res.error.message});
+    }
+  }
 };
 </script>
 

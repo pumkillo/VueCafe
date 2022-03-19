@@ -1,6 +1,8 @@
 <template>
   <div class="active-shift-orders">
     <h2 class="text-center m-4">Список заказов</h2>
+    <div class="text-danger">{{ response.error }}</div>
+    <div class="text-success">{{ response.message }}</div>
     <table class="table table-striped">
       <thead>
         <tr>
@@ -15,6 +17,7 @@
       </thead>
       <tbody>
         <order-block
+          @changeStatus="getResponse"
           v-for="order in orders"
           :key="order.id"
           :order="order"
@@ -34,12 +37,13 @@ export default {
   name: "ShiftOrdersView",
   data() {
     return {
+      response: {},
       orders: [],
-      error: "",
+      error: ""
     };
   },
   components: {
-    orderBlock,
+    orderBlock
   },
   mounted() {
     this.getOrders();
@@ -50,7 +54,13 @@ export default {
       const res = await this.fetchOrders();
       res.error ? (this.error = res.error.message) : (this.orders = res.data);
     },
-  },
+    getResponse(obj) {
+      this.response = obj;
+      if(obj.message){
+        this.getOrders();
+      }
+    }
+  }
 };
 </script>
 

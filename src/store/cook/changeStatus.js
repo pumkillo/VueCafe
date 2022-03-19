@@ -2,8 +2,6 @@ const changeStatus = {
   namespaced: true,
   actions: {
     async changeStatus(context, { orderId, body }) {
-      console.log(orderId);
-      console.log(body);
       const res = await fetch(
         process.env.VUE_APP_HOST_URL + "order/" + orderId + "/change-status",
         {
@@ -15,7 +13,6 @@ const changeStatus = {
           },
         }
       ).then((response) => response.json());
-      console.log(res);
       return res;
     },
   },

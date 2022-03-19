@@ -34,7 +34,7 @@ export default {
       error: "",
       work_shift_id: "",
       table_id: "",
-      number_of_person: "",
+      number_of_person: ""
     };
   },
   methods: {
@@ -43,15 +43,16 @@ export default {
       const body = {
         work_shift_id: this.work_shift_id,
         table_id: this.table_id,
-        number_of_person: this.number_of_person,
+        number_of_person: this.number_of_person
       };
       //   console.log(body);
       const res = await this.createNewOrder(body);
       res.error
         ? (this.error = res.error.message)
         : (this.success = "The order added successfully");
-    },
-  },
+      if (res.data) this.$router.push({ name: "orders" });
+    }
+  }
 };
 </script>
 
